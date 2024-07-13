@@ -7,69 +7,133 @@ import Footer from 'components/Footer';
 import MetaTags from 'components/MetaTags';
 import { enumAds } from 'interface/enum';
 import type { NextPage } from 'next';
+import { useQuery, gql } from '@apollo/client';
+
 interface IProps {
-  data: IMovies;
+  movies: IMovies;
   error?: string;
   ads?: IAds[];
 }
-const Home: NextPage<IProps> = ({ data, ads, error }) => {
+const GET_ANIME_QUERY = gql`
+  query GetAnime {
+    anime {
+      name
+      mm_name
+      rating
+      released_date
+      show_type
+      cover_path
+      backdrop_path
+    }
+  }
+`;
+const GET_SHOWS_QUERY = gql`
+  query GetTvShows {
+    tv_shows {
+      name
+      mm_name
+      rating
+      released_date
+      show_type
+      cover_path
+      backdrop_path
+    }
+  }
+`;
+const GET_LATEST_QUERY = gql`
+  query GetLatest {
+    latest {
+      name
+      mm_name
+      rating
+      released_date
+      show_type
+      cover_path
+      backdrop_path
+    }
+  }
+`;
+const GET_MOVIES_QUERY = gql`
+  query GetMovies {
+    movies {
+      name
+      mm_name
+      rating
+      released_date
+      show_type
+      cover_path
+      backdrop_path
+    }
+  }
+`;
+const GET_CAROUSEL_QUERY = gql`
+  query GetCarouselMovies {
+    carousel {
+      name
+      mm_name
+      rating
+      released_date
+      show_type
+      cover_path
+      backdrop_path
+    }
+  }
+`;
+const GET_ADS_QUERY = gql`
+  query GetAds {
+    ads {
+      name
+      image
+      link
+    }
+  }
+`;
+
+const Home: NextPage<IProps> = () => {
+  const { data: adsData } = useQuery(GET_ADS_QUERY);
+  const { data: moviesData } = useQuery(GET_MOVIES_QUERY);
+  const { data: showData } = useQuery(GET_SHOWS_QUERY);
+  const { data: animeData } = useQuery(GET_ANIME_QUERY);
+  const { data: latestData } = useQuery(GET_LATEST_QUERY);
+  const { data: carouselData } = useQuery(GET_CAROUSEL_QUERY);
+
   const metaData: ISeoInfo = {
     title: `Soulkingdom`,
     description: `Soulkingdom`
   };
 
-  if (error) {
-    return (
-      <FlexCenter>
-        <p>{error}</p>
-      </FlexCenter>
-    );
-  }
-  const firstAds = ads?.find(ads => ads.name === enumAds.WEB_HOME_FIRST_BANNER);
-  const secondAds = ads?.find(
-    ads => ads.name === enumAds.WEB_HOME_SECOND_BANNER
-  );
+  // if (error) {
+  //   return (
+  //     <FlexCenter>
+  //       <p>{error}</p>
+  //     </FlexCenter>
+  //   );
+  // }
+  const firstAds = adsData?.ads[3];
+  const secondAds = adsData?.ads[1];
 
   return (
     <>
       <MetaTags metaData={metaData} />
       <div style={{ height: '10px' }} />
-      <ComponentAds img_url={firstAds?.image || '/soulk.gif'} url={ads_url} />
       <div style={{ height: '10px' }} />
       <ComponentAds
         img_url={secondAds?.image || '/1000-120.gif'}
         url={ads_url}
       />
       <div style={{ height: '10px' }} />
-      <ComponentRandom carousels={data?.carousels} />
+      <ComponentRandom carousels={carouselData?.carousel} />
       <Listing
-        animes={data?.anime}
-        latest={data?.latest}
-        tv_shows={data?.tv_shows}
-        movies={data?.movies}
-        data={data}
-        ads={ads}
+        animes={animeData?.anime}
+        latest={latestData?.latest}
+        tv_shows={showData?.tv_shows}
+        movies={moviesData?.movies}
+        data={moviesData?.movies}
+        ads={adsData?.ads}
       />
       <Footer />
     </>
   );
 };
-export async function getServerSideProps() {
-  let error = '';
-  let data = {};
-  let ads = {};
-  try {
-    const res = await fetcher('/home');
-    const adsRes = await fetcher('/ads');
-    if (typeof res === undefined) {
-      return (error = 'nothing I can see');
-    }
-    data = res;
-    ads = adsRes;
-  } catch (e: any) {
-    error = e.toString();
-  }
-  return { props: { data, ads, error } };
-}
 
 export default Home;

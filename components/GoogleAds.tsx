@@ -44,7 +44,11 @@ export const ComponentSidebarAds = ({ url, img_url }: IProps) => {
   return (
     <StyledSidebarAds>
       <a href={url} target="_blank" rel="noreferrer">
-        <Image src={img_url || ''} alt={img_url} layout="fill" />
+        <Image
+          src={img_url || '/sk-300-600-1.gif'}
+          alt={img_url}
+          layout="fill"
+        />
       </a>
     </StyledSidebarAds>
   );
