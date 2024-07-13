@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { PANDA_APOLLO } from '@utils';
 
 const httpLink = new HttpLink({
-  uri: PANDA_APOLLO
+  uri: '/api/graphql'
 });
 
 const client = new ApolloClient({
