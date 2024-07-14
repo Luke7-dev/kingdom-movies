@@ -12,7 +12,8 @@ import Script from 'next/script';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-
+import { ApolloProvider } from '@apollo/client';
+import client from 'lib/client';
 const progress = new ProgressBar({
   size: 2,
   color: '#F44336',
@@ -92,7 +93,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             <GlobalStyles />
             <Responsive>
               <AppLayout>
-                <Component {...pageProps} />
+                <ApolloProvider client={client}>
+                  <Component {...pageProps} />
+                </ApolloProvider>
               </AppLayout>
             </Responsive>
           </StyledThemeProvider>

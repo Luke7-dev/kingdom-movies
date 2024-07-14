@@ -35,10 +35,6 @@ export function Listing(props: IProps) {
 
   return (
     <ContentLayout>
-      <ComponentAds
-        img_url={third?.image || '/lion77banner.mp4'}
-        url={ads_url}
-      />
       <StyledHeading>Content Recently Added</StyledHeading>
       <section className="listing-layout">
         <section className="content-body">
@@ -125,7 +121,6 @@ export function Listing(props: IProps) {
               )}
             </ArticleRow>
           </SectionLayout>
-          {/* <ComponentVideoAds img_url="/ads-footer.mp4" url={ads_url} /> */}
         </section>
         <Sidebar adsUrl={side?.image} />
       </section>

@@ -35,4 +35,19 @@ deploy on vercel
 
 ```
 
-[https://soulkingdom.vercel.app/]
+## tech changes
+
+#### change rest api to graphql api
+
+```
+ NEXT_PUBLIC_PANDA_APOLLO = 'http://localhost:4000'
+
+```
+
+need to run graphql server
+
+#### run on [https://github.com/yewinag/panda-apollo](https://github.com/yewinag/panda-apollo)
+
+it will start running on [http://localhost:4000](http://localhost:4000)
+
+[https://soulkingdom.net/]
