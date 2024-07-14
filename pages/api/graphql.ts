@@ -21,7 +21,7 @@ export const config = {
     bodyParser: false
   }
 };
-
+// @ts-ignore
 export default async function handler(req, res) {
   // Wait for the Apollo server to start
   await startServer;
