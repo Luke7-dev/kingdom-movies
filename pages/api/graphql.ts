@@ -1,4 +1,5 @@
 // pages/api/graphql.ts
+import { NextApiRequest, NextApiResponse } from 'next';
 import { ApolloServer } from 'apollo-server-micro';
 import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
@@ -21,8 +22,11 @@ export const config = {
     bodyParser: false
   }
 };
-// @ts-ignore
-export default async function handler(req, res) {
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   // Wait for the Apollo server to start
   await startServer;
 
