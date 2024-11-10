@@ -1,0 +1,44 @@
+// lib/mongoose.ts
+import mongoose, { Mongoose } from 'mongoose';
+
+const MONGODB_URI = process.env.MONGODB_URI as string;
+
+if (!MONGODB_URI) {
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env.local'
+  );
+}
+
+// Define an interface for the cache object
+interface MongooseCache {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+let cached = global.mongoose || { conn: null, promise: null };
+
+async function connectToDatabase(): Promise<Mongoose> {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
+      return mongoose;
+    });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
+
+// Cache the connection in global for the development environment only
+if (process.env.NODE_ENV === 'development') {
+  global.mongoose = cached;
+}
+
+export default connectToDatabase;
