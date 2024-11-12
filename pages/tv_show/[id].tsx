@@ -40,7 +40,7 @@ const TVShowDetail: NextPage = () => {
     title: `${data?.data?.name} films - watch ${data?.data?.name}  on soulkingdom `,
     description: `${data?.data?.overview} complete cast of ${data?.data?.name} `
   };
-
+  console.log('ok');
   return (
     <MainContent>
       {data?.data === undefined ? (
