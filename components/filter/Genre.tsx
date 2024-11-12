@@ -1,44 +1,40 @@
 import { PATH_GENRES } from '@constants';
-import { genreTypes } from '@interface';
-import { selectApp, setLoading, updateGenre } from '@store';
+import { IGenres } from '@interface';
+import { setLoading } from '@store';
 import { FlexCenter, StyledGenres } from '@styles';
 import { fetcher } from '@utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 
 export const Genre = () => {
   const {
     query: { search }
   } = useRouter();
-  const { genre, loading } = useSelector(selectApp);
-  const dispatch = useDispatch();
+
+  const [genre, setGenre] = useState<IGenres[]>([]);
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
-    if (genre.length === 0) {
-      fetchGenre();
-    }
-  });
+    fetchGenre();
+  }, ['fetchGenre']);
 
   const fetchGenre = async () => {
     try {
-      dispatch(setLoading(true));
-      const res = await fetcher(`/show-total`);
-      await dispatch(updateGenre(res));
-      dispatch(setLoading(false));
+      setLoading(true);
+      const res = await fetcher(`/api/counts`);
+      setGenre(res.data);
     } catch (err) {
-      dispatch(setLoading(false));
+      setLoading(false);
     } finally {
-      dispatch(setLoading(false));
+      setLoading(false);
     }
   };
   if (loading) {
     return (
       <FlexCenter>
-        <BeatLoader color={'#D12729'} />;
+        <BeatLoader color={'#D12729'} />
       </FlexCenter>
     );
   }
@@ -48,8 +44,8 @@ export const Genre = () => {
       <h4>Genres</h4>
       <div className="genre-list scroll-bar">
         {genre.length > 0 &&
-          genre.map((item: Record<genreTypes, number>, index: any) => (
-            <Link href={`${PATH_GENRES}${Object.keys(item)}`} key={index}>
+          genre.map((item, index) => (
+            <Link href={`${PATH_GENRES}${item.title}`} key={index}>
               <a>
                 <div
                   className={
@@ -58,8 +54,8 @@ export const Genre = () => {
                       : 'genre-item'
                   }
                 >
-                  <p>{Object.keys(item)}</p>
-                  <p>{Object.values(item)}</p>
+                  <p>{item.title}</p>
+                  <p>{item.count}</p>
                 </div>
               </a>
             </Link>

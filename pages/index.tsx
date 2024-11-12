@@ -1,19 +1,19 @@
 import { ComponentGoogleAds, ComponentRandom, Listing } from '@components';
 import { IMovies, ISeoInfo } from '@interface';
 import { FlexCenter } from '@styles';
-import { BANNER_SLOT, CLIENT_KEY, fetcher } from '@utils';
+import { API_URL, BANNER_SLOT, CLIENT_KEY, fetcher } from '@utils';
 import MetaTags from 'components/MetaTags';
 import type { NextPage } from 'next';
 interface IProps {
   data: IMovies;
   error?: string;
 }
+
 const Home: NextPage<IProps> = ({ data, error }) => {
   const metaData: ISeoInfo = {
     title: `Soulkingdom - watch films online`,
     description: `Soulkingdom - watch films online`
   };
-
   if (error) {
     return (
       <FlexCenter>
@@ -21,15 +21,9 @@ const Home: NextPage<IProps> = ({ data, error }) => {
       </FlexCenter>
     );
   }
-
   return (
     <>
       <MetaTags metaData={metaData} />
-      <ComponentGoogleAds
-        currentPath="home"
-        client={CLIENT_KEY}
-        slot={BANNER_SLOT}
-      />
       <ComponentRandom carousels={data?.carousels} />
       <Listing
         animes={data?.anime}
@@ -45,8 +39,8 @@ export async function getStaticProps() {
   let error = '';
   let data = {};
   try {
-    const res = await fetcher('/home');
-    data = res;
+    const res = await fetcher('/api/movies');
+    data = res.data[0];
   } catch (e: any) {
     error = e.toString();
   }

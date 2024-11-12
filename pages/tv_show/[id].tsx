@@ -22,46 +22,28 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 import useSWR from 'swr';
-
+interface IRes {
+  data: IMovieDetail;
+}
 const TVShowDetail: NextPage = () => {
   const {
     query: { id }
   } = useRouter();
   const [seasons, setSeasons] = useState<ISeasonEpisode[]>([]);
-  const { data, error } = useSWR<IMovieDetail, Error>(
-    `/tv-shows/${id || 0}`,
-    fetcher
-  );
-
-  useEffect(() => {
-    const generateEpisodes = () => {
-      const formatEpisode: ISeasonEpisode[] = [];
-      data?.seasons?.map(async season => {
-        const episode = await generateEpisodesByNumber(season?.total_episodes);
-        formatEpisode.push({
-          id: season.id,
-          episodes: episode
-        });
-      });
-      setSeasons(formatEpisode);
-    };
-    if (data) {
-      generateEpisodes();
-    }
-  }, [data]);
+  const { data, error } = useSWR<IRes, Error>(`/api/movie/${id || 0}`, fetcher);
 
   if (error) {
     return <ComponentNotFound />;
   }
 
   const metaData: ISeoInfo = {
-    title: `${data?.name} films - watch ${data?.name}  on soulkingdom `,
-    description: `${data?.overview} complete cast of ${data?.name} `
+    title: `${data?.data?.name} films - watch ${data?.data?.name}  on soulkingdom `,
+    description: `${data?.data?.overview} complete cast of ${data?.data?.name} `
   };
-
+  console.log('ok');
   return (
     <MainContent>
-      {data === undefined ? (
+      {data?.data === undefined ? (
         <FlexCenter>
           <BeatLoader color={light.primary_500} />
         </FlexCenter>
@@ -73,30 +55,25 @@ const TVShowDetail: NextPage = () => {
               <div className="detail">
                 <div className="image">
                   <Image
-                    src={data?.cover_path}
-                    alt={data?.name}
+                    src={data?.data?.cover_path ?? ''}
+                    alt={data?.data?.name}
                     width={160}
                     height={237}
                     loading={'lazy'}
                   />
                 </div>
                 <div className="info">
-                  <SeactionHeading>{`${data?.name} ( ${data?.mm_name} )`}</SeactionHeading>
-                  <p className="small">{data?.released_date}</p>
-                  <div className="type">
-                    {data?.genres.map((item, index) => (
-                      <span key={index}>{item.name}</span>
-                    ))}
-                  </div>
-                  <p className="small">{`IMDB - ${data?.rating}`}</p>
+                  <SeactionHeading>{`${data?.data?.name} ( ${data?.data?.mm_name} )`}</SeactionHeading>
+                  <p className="small">{data?.data?.released_date}</p>
+                  <p className="small">{`IMDB - ${data?.data?.rating}`}</p>
                 </div>
               </div>
               <div className="description">
                 <SeactionHeading>Complete Cast</SeactionHeading>
-                <p>{data?.overview}</p>
+                <p>{data?.data?.overview}</p>
                 <Image
-                  src={data?.backdrop_path || defaultImageCast}
-                  alt={data?.name}
+                  src={data?.data?.backdrop_path || defaultImageCast}
+                  alt={data?.data?.name}
                   width={500}
                   height={288}
                   loading={'lazy'}

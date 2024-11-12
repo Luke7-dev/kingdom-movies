@@ -11,7 +11,6 @@ import Link from 'next/link';
 
 import { IMovie, IMovies } from '../interface';
 import { ComponentCard } from './common';
-// import { ComponentGoogleAds } from './GoogleAds';
 import { Sidebar } from './Sidebar';
 import { ComponentPlaceholder } from './Skeleton';
 interface IProps {
@@ -23,7 +22,6 @@ interface IProps {
 }
 export function Listing(props: IProps) {
   const { animes, latest, tv_shows, movies } = props;
-
   return (
     <ContentLayout>
       <StyledHeading>Content Recently Added</StyledHeading>
@@ -48,8 +46,6 @@ export function Listing(props: IProps) {
               )}
             </ArticleRow>
           </SectionLayout>
-          {/* google ads */}
-          {/* <ComponentGoogleAds /> */}
           <SectionLayout>
             <SectionTitle>
               <Link href={`${PATH_GENRES}${keywords.ANIME}`}>

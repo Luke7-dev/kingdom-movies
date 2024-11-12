@@ -142,12 +142,13 @@ const Header = () => {
               <div className="logo-layout">
                 <Link href="/">
                   <a>
-                    <Image
+                    {/* <Image
                       src={'/soulkingdom.png'}
                       width={164}
                       height={40}
                       alt={'soulkingdom logo'}
-                    />
+                    /> */}
+                    Logo
                   </a>
                 </Link>
               </div>

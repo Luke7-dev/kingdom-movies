@@ -1,3 +1,5 @@
+import { IGenres } from '@interface';
+
 export const DARK = 'dark';
 export const LIGHT = 'light';
 export const initPage = 0;
@@ -19,70 +21,70 @@ export const ABOUT = '/about';
 export const defaultImage = '/soul-kingdom-placeholder-1.png';
 export const defaultImageSmall = '/soul-kingdom-placeholder-2.png';
 export const defaultImageCast = '/soul-kingdom-placeholder-cast.png';
-export const genres = [
+export const genres: IGenres[] = [
   {
     title: 'Action',
     count: 1014
   },
   {
     title: 'Adventure',
-    count: 1014
+    count: 59
   },
   {
     title: 'Animation',
-    count: 1014
+    count: 88
   },
   {
     title: 'Comedy',
-    count: 1014
+    count: 23
   },
   {
     title: 'Crime',
-    count: 1014
+    count: 123
   },
   {
     title: 'Documentary',
-    count: 1014
+    count: 45
   },
   {
     title: 'Drama',
-    count: 1014
+    count: 894
   },
   {
     title: 'Family',
-    count: 1014
+    count: 94
   },
   {
     title: 'History',
-    count: 1014
+    count: 64
   },
   {
     title: 'Horror',
-    count: 1014
+    count: 12
   },
   {
     title: 'Music',
-    count: 1014
+    count: 0
   },
   {
     title: 'Science Fiction',
-    count: 1014
+    count: 1223
   },
   {
     title: 'Thriller',
-    count: 1014
+    count: 84
   },
   {
     title: 'TV Movie',
-    count: 1014
+    count: 894
   },
   {
     title: 'Uncategorized',
-    count: 1014
+    count: 123
   },
   {
     title: 'War',
-    count: 1014
+    count: 373
   }
 ];
 export const years = [

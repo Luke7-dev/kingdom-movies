@@ -11,19 +11,20 @@ export const clientFetcher = async (path: string) => {
 };
 
 export const fetcher = async (path: string) => {
-  const res = await fetch(`${API_URL}${path}`, {
+  const url = API_URL ? `${API_URL}${path}` : path;
+  const res = await fetch(url, {
     headers: {
       Authorization: TOKEN || '',
       Accept: 'application/json, text/plain, */*',
       'User-Agent': '*'
     }
   });
+
   if (res.status !== 200) {
     throw new Error(`An error occurred while fetching the data.`);
   }
-  if (res.status === 200) {
-    return res.json();
-  }
+
+  return res.json();
 };
 
 export const generateEpisodesByNumber = (episode: number) => {
