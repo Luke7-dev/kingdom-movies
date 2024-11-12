@@ -36,23 +36,27 @@ export interface INetwork {
   name: string;
 }
 export interface IMovieDetail {
-  backdrop_path: string;
-  casts: ICasts[] | [];
-  cover_path: string;
-  genres: IGenres[] | [];
-  id: number;
-  mm_name: string;
-  name: string;
-  network: INetwork;
-  overview: string;
-  published: boolean;
-  rating: number;
-  released_date: string;
-  slug: string;
-  streaming_id: string;
-  trailer_link: string;
+  backdrop_path?: string;
+  casts?: ICasts[] | [];
+  cover_path?: string;
+  genres?: IGenres[] | [];
+  id?: number;
+  mm_name?: string;
+  name?: string;
+  network?: INetwork;
+  overview?: string;
+  published?: boolean;
+  rating?: number;
+  released_date?: string;
+  slug?: string;
+  streaming_id?: string;
+  trailer_link?: string;
   seasons?: ISeason[];
-  trailer_embedded_url: string;
+  trailer_embedded_url?: string;
+  show_type?: string;
+  last_season?: number;
+  last_episode?: number;
+  created_at?: string;
 }
 export interface ISeason {
   id: number;

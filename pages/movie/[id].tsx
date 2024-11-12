@@ -76,9 +76,9 @@ const Detail: NextPage = () => {
                   </SeactionHeading>
                   <p className="small">{data?.released_date}</p>
                   <div className="type">
-                    {data?.genres.map((item, index) => (
+                    {/* {data?.genres.map((item, index) => (
                       <span key={index}>{item.name}</span>
-                    ))}
+                    ))} */}
                   </div>
                   <p className="small">{`IMDB - ${data?.rating}`}</p>
                 </div>

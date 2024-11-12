@@ -22,9 +22,6 @@ export default async function handler(
         .json({ message: 'Movies fetched successfully', data: genres });
       break;
     case 'POST':
-      // Handle POST request
-      const newMovie = new MovieV1(req.body);
-      await newMovie.save();
       res.status(201);
       // .json({ message: 'Movie created successfully', movies: [newMovie] });
       break;

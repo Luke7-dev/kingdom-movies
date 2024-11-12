@@ -15,19 +15,21 @@ export default async function handler(
   await connectToDatabase();
 
   switch (req.method) {
-    case 'GET':
+    case 'GET': {
       const movies = await MovieV1.find({});
       res
         .status(200)
         .json({ message: 'Movies fetched successfully', data: movies });
       break;
-    case 'POST':
+    }
+    case 'POST': {
       // Handle POST request
       const newMovie = new MovieV1(req.body);
       await newMovie.save();
       res.status(201);
       // .json({ message: 'Movie created successfully', movies: [newMovie] });
       break;
+    }
     default:
       res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);

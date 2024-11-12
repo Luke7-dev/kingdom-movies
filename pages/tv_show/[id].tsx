@@ -55,7 +55,7 @@ const TVShowDetail: NextPage = () => {
               <div className="detail">
                 <div className="image">
                   <Image
-                    src={data?.data?.cover_path}
+                    src={data?.data?.cover_path ?? ''}
                     alt={data?.data?.name}
                     width={160}
                     height={237}

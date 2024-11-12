@@ -9,13 +9,15 @@ if (!MONGODB_URI) {
   );
 }
 
-// Define an interface for the cache object
-interface MongooseCache {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
-}
+// interface MongooseCache {
+//   conn: Mongoose | null;
+//   promise: Promise<Mongoose> | null;
+// }
 
-let cached = global.mongoose || { conn: null, promise: null };
+// Extend the global namespace with the mongoose property
+
+// Initialize the cached variable
+const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
 
 async function connectToDatabase(): Promise<Mongoose> {
   if (cached.conn) {
