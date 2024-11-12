@@ -65,11 +65,6 @@ const TVShowDetail: NextPage = () => {
                 <div className="info">
                   <SeactionHeading>{`${data?.data?.name} ( ${data?.data?.mm_name} )`}</SeactionHeading>
                   <p className="small">{data?.data?.released_date}</p>
-                  {/* <div className="type">
-                    {data?.data?.genres.map((item, index) => (
-                      <span key={index}>{item.name}</span>
-                    ))}
-                  </div> */}
                   <p className="small">{`IMDB - ${data?.data?.rating}`}</p>
                 </div>
               </div>
