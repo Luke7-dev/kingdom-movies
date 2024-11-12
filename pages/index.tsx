@@ -24,11 +24,6 @@ const Home: NextPage<IProps> = ({ data, error }) => {
   return (
     <>
       <MetaTags metaData={metaData} />
-      <ComponentGoogleAds
-        currentPath="home"
-        client={CLIENT_KEY}
-        slot={BANNER_SLOT}
-      />
       <ComponentRandom carousels={data?.carousels} />
       <Listing
         animes={data?.anime}

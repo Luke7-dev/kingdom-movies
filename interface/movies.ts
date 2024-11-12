@@ -26,8 +26,10 @@ export interface ICasts {
   name: string;
 }
 export interface IGenres {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
+  title?: string;
+  count?: number;
 }
 export interface INetwork {
   id: number;

@@ -22,7 +22,6 @@ interface IProps {
 }
 export function Listing(props: IProps) {
   const { animes, latest, tv_shows, movies } = props;
-  // console.log(animes);
   return (
     <ContentLayout>
       <StyledHeading>Content Recently Added</StyledHeading>

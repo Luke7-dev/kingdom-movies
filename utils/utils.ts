@@ -11,9 +11,7 @@ export const clientFetcher = async (path: string) => {
 };
 
 export const fetcher = async (path: string) => {
-  // Determine the full URL based on whether API_URL is defined
   const url = API_URL ? `${API_URL}${path}` : path;
-  console.log(url);
   const res = await fetch(url, {
     headers: {
       Authorization: TOKEN || '',
